@@ -1,30 +1,33 @@
-@extends('layouts.app')
-
+@extends('websitelayout.app')
 
 @section('content')
 
-  <main class="flex flex-col md:flex-row items-center justify-between p-6 md:p-12">
-   <div class="text-center md:text-left md:w-full">
-    <h2 class="text-red-500 text-lg">
-     Stay Healthy
-    </h2>
-    <h1 class="text-4xl md:text-5xl font-bold mt-2">
-     Stay Healthy With Fitness Club
-    </h1>
-    <p class="mt-4 text-gray-400">
-     Train with us, and you'll not only be part of the team, you'll be part of the family.
-    </p>
-    <div class="mt-6 space-x-4">
-     <a href="/login"><button class="bg-red-500 text-white px-6 py-2 rounded-md">
-      Log in
-     </button></a>
-    <A href="/register"> <button class="border border-white text-white px-6 py-2 rounded-md">
-      Register
-     </button></A>
-   </div>
-  </main>
+<h1 class="text-3xl font-bold mb-4">Welcome to Our Website</h1>
+<p class="mb-6 text-gray-700">Stay updated with the latest events and discover our range of services.</p>
 
- </body>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</html>
+<!-- Events Section -->
+<h2 class="text-2xl font-bold mb-4">Upcoming Events</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+    @foreach ($events as $event)
+        <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+            <h5 class="text-xl font-semibold text-gray-900">{{ $event->title }}</h5>
+            <h4 class="text-gray-600">{{ $event->location }}</h4>
+            <p class="text-gray-700 mt-2">{{ $event->description }}</p>
+            <!-- <p class="text-gray-700 mt-2"><strong>Date:</strong> {{ $event->date }}</p> -->
+        </div>
+    @endforeach
+</div>
+
+<!-- Services Section -->
+<h2 class="text-2xl font-bold mb-4">Our Services</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @foreach ($services as $service)
+        <div class="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+            <h5 class="text-xl font-semibold text-gray-900">{{ $service->name }}</h5>
+            <p class="text-gray-700 mt-2">{{ $service->description }}</p>
+            <p class="text-gray-700 mt-2"><strong>Price:</strong> ${{ $service->price }}</p>
+        </div>
+    @endforeach
+</div>
+
 @endsection

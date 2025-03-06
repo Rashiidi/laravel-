@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ServiceController;
 
 /*
@@ -16,17 +18,10 @@ use App\Http\Controllers\ServiceController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/welcome', [HomeController::class, 'index'])->name('welcome');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,23 +29,24 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
+
 require __DIR__.'/auth.php';
-
-
 
 Route::get('/contact', function () {
     return view('contact');
 });
 
-// Route::get('/services', function () {
-//     return view('services');
-// });
-Route::get('/services', [ServiceController::class, 'index']);
-// Route::get('/event', function () {
-//     return view('event');
-// });
-Route::get(uri: '/event', action: [EventController ::class, 'index']);
+// Service Routes
+Route::resource('services', ServiceController::class);
+Route::get('/showServices', [ServiceController::class, 'front']);
 
-Route::get('/CreateEvent', [EventController::class, 'create']);
+// Event Routes
+Route::resource('events', EventController::class);
+Route::get('/showEvents', [EventController::class, 'front']);
+Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
 
-Route::post(uri:'/store', action: [EventController ::class,'store']);
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/welcome');
+})->name('logout');

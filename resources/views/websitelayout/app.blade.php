@@ -52,21 +52,28 @@
     </style>
 </head>
 <body class="bg-gray-900 text-white font-roboto">
-    <header class="flex justify-between items-center p-6">
-        <div class="flex items-center">
-            <img alt="Fitness Club Logo" class="h-10 w-10" height="50" src="https://storage.googleapis.com/a1aa/image/kR40XUiHCrLkWC8pNcoJ170VlQk5sEPJQfXi4d9EkIo.jpg" width="50"/>
-            <span class="ml-2 text-xl font-bold">FitClub</span>
+<header class="flex justify-between items-center p-6 bg-gray-800">
+    <div class="flex items-center">
+        <img alt="Fitness Club Logo" class="h-10 w-10" height="50" src="https://storage.googleapis.com/a1aa/image/kR40XUiHCrLkWC8pNcoJ170VlQk5sEPJQfXi4d9EkIo.jpg" width="50"/>
+        <span class="ml-2 text-xl font-bold text-red-500">FitClub</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-6">
+        <a class="text-white hover:text-red-500 transition-colors" href="welcome">Home</a>
+        <a class="text-white hover:text-red-500 transition-colors" href="#">About</a>
+        <a class="text-white hover:text-red-500 transition-colors" href="/showServices">Services</a>
+        <a class="text-white hover:text-red-500 transition-colors" href="/showEvents">Events</a>
+        <a class="text-white hover:text-red-500 transition-colors" href="contact">Contact</a>
+        
+        <div class="flex items-center gap-4 ml-4">
+            <a href="/login" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                Log in
+            </a>
+            <a href="/register" class="border border-white hover:border-red-500 text-white hover:text-red-500 px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                Register
+            </a>
         </div>
-        <nav class="hidden md:flex space-x-6">
-            <a class="text-red-500" href="welcome">Home</a>
-            <a class="hover:text-red-500" href="#">About</a>
-            <a class="hover:text-red-500" href="services">Service</a>
-            <a class="hover:text-red-500" href="event">Events</a>
-            <a class="hover:text-red-500" href="#">Pricing</a>
-            <a class="hover:text-red-500" href="contact">Contacts</a>
-        </nav>
-        <button class="bg-red-500 text-white px-4 py-2 rounded-md">Join Us</button>
-    </header>
+    </nav>
+</header>
 @yield('content')
 <!-- cdn js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
