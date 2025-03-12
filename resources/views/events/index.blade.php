@@ -26,6 +26,8 @@
                     <h5 class="card-title text-primary mb-3">{{ $event->title }}</h5>
                     <div class="bg-light p-3 rounded mb-3">
                         <p class="mb-1"><strong>Location:</strong> {{ $event->location }}</p>
+                        <p class="mb-1"><strong>Date:</strong> {{ $event->date }}</p>
+                        <p class="mb-1"><strong>Description:</strong> {{ $event->description }}</p>
                         <p class="mb-0 text-muted small"><strong>Event ID:</strong> {{ $event->id }}</p>
                     </div>
                     <div class="d-grid gap-2">
@@ -74,4 +76,5 @@
         min-height: 3rem;
     }
 </style>
+
 @endsection

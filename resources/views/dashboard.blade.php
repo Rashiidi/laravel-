@@ -16,7 +16,7 @@
             </div>
             <div class="grid grid-cols-3 gap-4">
                 <div class="bg-white p-6 rounded shadow">
-                    <h2 class="text-lg font-semibold">Total Events</h2>
+                    <h2 class="text-lg font-semibold">Total Activities</h2>
                     <p class="text-2xl font-bold">{{ $totalEvents }}</p>
                 </div>
                 <div class="bg-white p-6 rounded shadow">
@@ -24,8 +24,8 @@
                     <p class="text-2xl font-bold">{{ $totalServices }}</p>
                 </div>
                 <div class="bg-white p-6 rounded shadow">
-                    <h2 class="text-lg font-semibold">Revenue</h2>
-                    <p class="text-2xl font-bold">$125</p>
+                    <h2 class="text-lg font-semibold">Total Users</h2>
+                    <p class="text-2xl font-bold">{{ $totalUsers }}</p>
                 </div>
             </div>
 @endsection

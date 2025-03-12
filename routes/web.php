@@ -6,6 +6,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,28 +25,25 @@ Route::get('/welcome', [HomeController::class, 'index'])->name('welcome');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('users', UserController::class);
+    Route::resource('services', ServiceController::class);
+    Route::resource('events', EventController::class);
+    Route::get('/reports', [ReportsController::class, 'index'])->name('reports.index');
+    Route::get('/reports/activity-performance', [ReportsController::class, 'activityPerformance'])->name('reports.activityPerformance');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
-
 require __DIR__.'/auth.php';
 
 Route::get('/contact', function () {
     return view('contact');
 });
-
-// Service Routes
-Route::resource('services', ServiceController::class);
-Route::get('/showServices', [ServiceController::class, 'front']);
-
-// Event Routes
-Route::resource('events', EventController::class);
-Route::get('/showEvents', [EventController::class, 'front']);
-Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
 
 Route::post('/logout', function () {
     Auth::logout();

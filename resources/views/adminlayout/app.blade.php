@@ -14,9 +14,12 @@
             <h2 class="text-2xl font-bold mb-6">Admin Panel</h2>
             <ul>
                 <li class="mb-4"><a href="{{ route('dashboard') }}" class="hover:text-gray-300">Dashboard</a></li>
+                <li class="mb-4"><a href="{{ route('profile.edit') }}" class="hover:text-gray-300">Profile</a></li>
                 <li class="mb-4"><a href="{{ route('events.index') }}" class="hover:text-gray-300">Events</a></li>
-                <li class="mb-4"><a href="#" class="hover:text-gray-300">Users</a></li>
+                <li class="mb-4"><a href="{{ route('users.index') }}" class="hover:text-gray-300">Users</a></li>
                 <li class="mb-4"><a href="{{ route('services.index') }}" class="hover:text-gray-300">Services</a></li>
+                <li class="mb-4"><a href="{{ route('reports.index') }}" class="hover:text-gray-300">Reports</a></li>
+                <li class="mb-4"><a href="{{ route('reports.activityPerformance') }}" class="hover:text-gray-300">Activity Performance</a></li>
             </ul>
         </div>
          <!-- content here -->

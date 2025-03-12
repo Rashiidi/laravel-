@@ -24,6 +24,19 @@
                     value="{{ old('location', $event->location) }}" required>
             </div>
 
+            <div class="mb-3">
+                <label for="date" class="form-label fw-bold">Date</label>
+                <input type="date" name="date" id="date" 
+                    class="form-control" 
+                    value="{{ old('date', $event->date) }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label fw-bold">Description</label>
+                <textarea name="description" id="description" 
+                    class="form-control">{{ old('description', $event->description) }}</textarea>
+            </div>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-primary px-4 py-2 fw-bold">
                     <i class="fas fa-save"></i> Save Changes

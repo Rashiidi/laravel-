@@ -12,25 +12,29 @@
             <div class="mb-3">
                 <label for="title" class="form-label fw-bold">Event Title</label>
                 <input type="text" name="title" id="title" 
-                    class="form-control text-white" 
-                    style="background-color: transparent; border: 1px solid #ced4da;"
+                    class="form-control" 
                     placeholder="Enter event title" required>
             </div>
 
             <div class="mb-3">
                 <label for="location" class="form-label fw-bold">Location</label>
                 <input type="text" name="location" id="location" 
-                    class="form-control text-white" 
-                    style="background-color: transparent; border: 1px solid #ced4da;"
+                    class="form-control" 
                     placeholder="Enter event location" required>
             </div>
 
             <div class="mb-3">
-                <label for="image" class="form-label fw-bold">Upload Image</label>
-                <input type="file" name="image" id="image" 
-                    class="form-control text-white" 
-                    style="background-color: transparent; border: 1px solid #ced4da;"
-                    accept="image/*" required>
+                <label for="date" class="form-label fw-bold">Date</label>
+                <input type="date" name="date" id="date" 
+                    class="form-control" 
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label fw-bold">Description</label>
+                <textarea name="description" id="description" 
+                    class="form-control" 
+                    placeholder="Enter event description"></textarea>
             </div>
 
             <div class="text-center">
