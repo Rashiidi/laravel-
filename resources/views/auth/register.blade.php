@@ -2,6 +2,18 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <!-- Add a hidden input for the role -->
+<input type="hidden" name="role" value="user">
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -21,14 +33,14 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
           <!-- Role Selection -->
-          <div class="mt-4">
+          <!-- <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <select id="role" name="role" class="block mt-1 w-full">
                 <option value="user" selected>User</option>
                 <option value="admin">Admin</option>
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
+        </div> -->
 
         <!-- Password -->
         <div class="mt-4">
@@ -52,6 +64,10 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
+
+
+        <!-- Terms and Privacy Policy -->
+        <input type="hidden" name="role" value="user">
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">

@@ -15,6 +15,9 @@
     @endforeach
 </div>
 
-{{ $services->links() }}
+<!-- Pagination Links -->
+<div class="mt-6">
+    {{ $services->links() }}
+</div>
 
 @endsection

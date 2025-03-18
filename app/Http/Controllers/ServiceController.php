@@ -61,4 +61,10 @@ class ServiceController extends Controller
 
         return redirect('/services')->with('success', 'Service deleted successfully!');
     }
+
+public function showServices()
+{
+    $services = Service::paginate(6); // Fetch services with pagination (6 per page)
+    return view('services.showServices', compact('services')); // Pass the paginated services to the view
+}
 }

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\User;
-use App\Notifications\UpcomingActivityNotification;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -45,12 +43,6 @@ class EventController extends Controller
 
         $event = Event::create($request->all());
 
-        // Send notification to all users
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->notify(new UpcomingActivityNotification($event));
-        }
-
         return redirect('/events')->with('success', 'Event has been created successfully');
     }
 
@@ -77,12 +69,6 @@ class EventController extends Controller
 
         $event = Event::findOrFail($id);
         $event->update($request->all());
-
-        // Send notification to all users
-        $users = User::all();
-        foreach ($users as $user) {
-            $user->notify(new UpcomingActivityNotification($event));
-        }
 
         return redirect()->route('events.index')->with('success', 'Event updated successfully');
     }

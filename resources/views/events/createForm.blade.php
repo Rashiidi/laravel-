@@ -2,48 +2,109 @@
 
 @section('content')
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4 text-primary fw-bold">Create Event</h1>
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+    <!-- Header Section -->
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+            Create New Event
+        </h1>
+        <p class="text-gray-600">Fill in the details below to create a new event</p>
+    </div>
 
-    <div class="card shadow-sm border-0 rounded p-4 bg-white">
+    <!-- Form Card -->
+    <div class="bg-white rounded-xl shadow-2xl border border-gray-100 p-6 md:p-8">
         <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="mb-3">
-                <label for="title" class="form-label fw-bold">Event Title</label>
-                <input type="text" name="title" id="title" 
-                    class="form-control" 
-                    placeholder="Enter event title" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="location" class="form-label fw-bold">Location</label>
-                <input type="text" name="location" id="location" 
-                    class="form-control" 
-                    placeholder="Enter event location" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="date" class="form-label fw-bold">Date</label>
-                <input type="date" name="date" id="date" 
-                    class="form-control" 
+            <!-- Title Input -->
+            <div class="mb-6">
+                <label for="title" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                    <i class="fas fa-heading text-blue-500 mr-2"></i>
+                    Event Title
+                </label>
+                <input type="text" name="title" id="title"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300"
+                    placeholder="Enter event title"
+                    value="{{ old('title') }}"
                     required>
+                @error('title')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
-            <div class="mb-3">
-                <label for="description" class="form-label fw-bold">Description</label>
+            <!-- Location Input -->
+            <div class="mb-6">
+                <label for="location" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                    <i class="fas fa-map-marker-alt text-purple-500 mr-2"></i>
+                    Location
+                </label>
+                <input type="text" name="location" id="location"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300"
+                    placeholder="Enter event location"
+                    value="{{ old('location') }}"
+                    required>
+                @error('location')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Date Input -->
+            <div class="mb-6">
+                <label for="date" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                    <i class="fas fa-calendar-day text-green-500 mr-2"></i>
+                    Event Date
+                </label>
+                <input type="date" name="date" id="date"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300"
+                    value="{{ old('date') }}"
+                    required>
+                @error('date')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Description Input -->
+            <div class="mb-8">
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                    <i class="fas fa-align-left text-orange-500 mr-2"></i>
+                    Description
+                </label>
                 <textarea name="description" id="description" 
-                    class="form-control" 
-                    placeholder="Enter event description"></textarea>
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300 min-h-[150px]"
+                    placeholder="Describe the event...">{{ old('description') }}</textarea>
+                @error('description')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary px-4 py-2 fw-bold">
-                    <i class="fas fa-plus"></i> Create Event
+            <!-- Form Actions -->
+            <div class="flex flex-col sm:flex-row justify-end gap-3 mt-6">
+                <a href="{{ route('events.index') }}" 
+                   class="btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg transition duration-300 text-center">
+                    <i class="fas fa-times mr-2"></i>Cancel
+                </a>
+                <button type="submit" 
+                        class="btn bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg shadow-md transition-all duration-300">
+                    <i class="fas fa-plus-circle mr-2"></i>Create Event
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+<style>
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    input:focus, textarea:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+</style>
 
 @endsection

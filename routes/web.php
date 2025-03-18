@@ -4,10 +4,16 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RegistrationController;
+
+// Other routes...
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +30,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/welcome', [HomeController::class, 'index'])->name('welcome');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/user/dashboard', 'User \DashboardController@index')->name('user.dashboard')->middleware('auth');
+
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
@@ -49,3 +57,35 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/welcome');
 })->name('logout');
+
+
+
+// User Section Routes
+Route::get('/activities', [EventController::class, 'front'])->name('activities.index');
+Route::get('/activities/{id}', [EventController::class, 'show'])->name('activities.show');
+
+// Registration Routes
+Route::post('/events/register/{eventId}', [RegistrationController::class, 'register'])
+    ->name('events.register')
+    ->middleware('auth');
+
+
+    Route::middleware(['auth', 'role:user'])->group(function () {
+        Route::get('/my-registrations', [RegistrationController::class, 'myRegistrations'])->name('my-registrations');
+        Route::get('/registrations/{id}/edit', [RegistrationController::class, 'edit'])->name('registrations.edit');
+        Route::put('/registrations/{id}', [RegistrationController::class, 'update'])->name('registrations.update');
+        Route::delete('/registrations/{id}', [RegistrationController::class, 'cancel'])->name('cancel-registration');
+    });
+
+    Route::get('/about', function () {
+        return view('about');
+    })->name('about');
+
+    // Default Laravel user registration routes
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/showServices', [ServiceController::class, 'showServices'])->name('services.showServices');
+
+// Feedback and Reviews
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');

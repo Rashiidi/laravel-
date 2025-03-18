@@ -1,81 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Club</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     <style>
-        .upcoming-events {
-            background-color: #f8f9fa; /* Light background */
+        .gradient-header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .section-title {
-            font-size: 2.5rem; /* Larger font size for the title */
-            margin-bottom: 2rem; /* Space below the title */
-            color: #343a40; /* Darker text color */
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ef4444;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .event-card {
-            background-color: #ffffff; /* White background for event cards */
-            border: 1px solid #dee2e6; /* Light border */
-            border-radius: 8px; /* Rounded corners */
-            padding: 20px; /* Padding inside the card */
-            margin-bottom: 30px; /* Space between cards */
-            transition: transform 0.3s; /* Smooth transition for hover effect */
+            background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
         }
 
         .event-card:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect on hover */
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
         }
 
-        .event-card h4 {
-            color: #007bff; /* Blue color for event titles */
+        .gradient-text {
+            background: linear-gradient(45deg, #ef4444, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .event-card p {
-            color: #000000; /* Black color for paragraph text */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-info {
-            background-color: #007bff; /* Bootstrap primary color */
-            border-color: #007bff; /* Match border color */
-        }
-
-        .btn-info:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-            border-color: #0056b3; /* Match border color */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white font-roboto">
-<header class="flex justify-between items-center p-6 bg-gray-800">
-    <div class="flex items-center">
-        <img alt="Fitness Club Logo" class="h-10 w-10" height="50" src="https://storage.googleapis.com/a1aa/image/kR40XUiHCrLkWC8pNcoJ170VlQk5sEPJQfXi4d9EkIo.jpg" width="50"/>
-        <span class="ml-2 text-xl font-bold text-red-500">FitClub</span>
-    </div>
-    <nav class="hidden md:flex items-center gap-6">
-        <a class="text-white hover:text-red-500 transition-colors" href="welcome">Home</a>
-        <a class="text-white hover:text-red-500 transition-colors" href="#">About</a>
-        <a class="text-white hover:text-red-500 transition-colors" href="/showServices">Services</a>
-        <a class="text-white hover:text-red-500 transition-colors" href="/showEvents">Events</a>
-        <a class="text-white hover:text-red-500 transition-colors" href="contact">Contact</a>
-        
-        <div class="flex items-center gap-4 ml-4">
-            <a href="/login" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                Log in
-            </a>
-            <a href="/register" class="border border-white hover:border-red-500 text-white hover:text-red-500 px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                Register
-            </a>
+<body class="bg-gray-900 text-gray-100 font-roboto">
+<header class="gradient-header fixed w-full z-50">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img alt="Fitness Club Logo" class="h-12 w-12 transform hover:scale-110 transition-transform" 
+                     src="https://storage.googleapis.com/a1aa/image/kR40XUiHCrLkWC8pNcoJ170VlQk5sEPJQfXi4d9EkIo.jpg">
+                <span class="text-2xl font-bold gradient-text font-poppins">FitClub</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8">
+                <a class="nav-link text-gray-300 hover:text-white" href="welcome">Home</a>
+                <a class="nav-link text-gray-300 hover:text-white" href="#">About</a>
+                <a class="nav-link text-gray-300 hover:text-white" href="{{ route('services.showServices') }}">Services</a>
+                <a class="nav-link text-gray-300 hover:text-white" href="{{ route('activities.index') }}">Events</a>
+                <a class="nav-link text-gray-300 hover:text-white" href="contact">Contact</a>
+                
+                <div class="flex space-x-4 ml-6">
+                    <a href="/login" class="px-6 py-2 bg-gradient-to-r from-red-500 to-orange-500 rounded-full 
+                       font-medium hover:from-red-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl">
+                        Log in
+                    </a>
+                    <a href="{{ route('register') }}" class="px-6 py-2 border border-red-500 text-red-500 
+                       rounded-full font-medium hover:bg-red-500/10 transition-all">
+                        Register
+                    </a>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </div>
 </header>
-@yield('content')
-<!-- cdn js -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<main class="pt-24 animate-fade-in">
+    @yield('content')
+</main>
+
+@if(session('success'))
+<div class="fixed bottom-6 right-6 bg-green-600/90 text-white px-6 py-3 rounded-lg shadow-xl backdrop-blur-sm">
+    ✓ {{ session('success') }}
+</div>
+@endif
+
+@if(session('error'))
+<div class="fixed bottom-6 right-6 bg-red-600/90 text-white px-6 py-3 rounded-lg shadow-xl backdrop-blur-sm">
+    ✗ {{ session('error') }}
+</div>
+@endif
+
+
+
+<!-- Footer Section -->
+<footer class="bg-gradient-to-br from-gray-800 to-gray-900 border-t border-gray-700/50 mt-24">
+    <div class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Brand Info -->
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <img alt="Fitness Club Logo" class="h-12 w-12" 
+                         src="https://storage.googleapis.com/a1aa/image/kR40XUiHCrLkWC8pNcoJ170VlQk5sEPJQfXi4d9EkIo.jpg">
+                    <span class="text-2xl font-bold gradient-text font-poppins">FitClub</span>
+                </div>
+                <p class="text-gray-400 text-sm">Transform your life through fitness. Join our community of passionate fitness enthusiasts.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-red-500 transition-colors">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="welcome" class="text-gray-400 hover:text-red-500 transition-colors">Home</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-red-500 transition-colors">About Us</a></li>
+                    <li><a href="/showServices" class="text-gray-400 hover:text-red-500 transition-colors">Services</a></li>
+                    <li><a href="{{ route('activities.index') }}" class="text-gray-400 hover:text-red-500 transition-colors">Events</a></li>
+                    <li><a href="contact" class="text-gray-400 hover:text-red-500 transition-colors">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-white mb-4">Contact Us</h4>
+                <div class="space-y-2">
+                    <p class="text-gray-400 flex items-center">
+                        <i class="fas fa-map-marker-alt mr-3 text-red-500"></i>
+                        123 Fitness Street, Health City
+                    </p>
+                    <p class="text-gray-400 flex items-center">
+                        <i class="fas fa-phone-alt mr-3 text-red-500"></i>
+                        +1 (555) 123-4567
+                    </p>
+                    <p class="text-gray-400 flex items-center">
+                        <i class="fas fa-envelope mr-3 text-red-500"></i>
+                        info@fitclub.com
+                    </p>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-white mb-4">Newsletter</h4>
+                <form class="flex flex-col space-y-3">
+                    <input type="email" placeholder="Enter your email" 
+                           class="bg-gray-700/30 border border-gray-600 rounded-lg px-4 py-3 text-white 
+                                  focus:outline-none focus:border-red-500 transition-colors">
+                    <button type="submit" 
+                            class="bg-gradient-to-r from-red-500 to-orange-500 text-white px-6 py-3 
+                                   rounded-lg font-medium hover:from-red-600 hover:to-orange-600 
+                                   transition-all shadow-lg hover:shadow-xl">
+                        Subscribe
+                    </button>
+                </form>
+                <p class="text-gray-400 text-xs">We never share your information. Unsubscribe anytime.</p>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="border-t border-gray-700/50 mt-12 pt-8 text-center">
+            <p class="text-gray-500 text-sm">
+                © 2024 FitClub. All rights reserved. 
+                <a href="#" class="hover:text-red-500 transition-colors">Privacy Policy</a> | 
+                <a href="#" class="hover:text-red-500 transition-colors">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Add Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

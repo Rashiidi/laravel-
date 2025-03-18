@@ -15,4 +15,19 @@ class Event extends Model
         'date',
         'description',
     ];
+
+    public function registrations()
+{
+    return $this->hasMany(Registration::class);
+}
+
+public function registeredEvents()
+{
+    return $this->belongsToMany(Event::class, 'registrations');
+}
+
+public function feedback()
+{
+    return $this->hasMany(Feedback::class);
+}
 }
