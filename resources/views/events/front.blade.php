@@ -34,7 +34,7 @@
                 <p class="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
                     {{ $event->description }}
                 </p>
-                <a href="{{ route('events.show', $event->id) }}" 
+                <a href="{{ route('activities.show', $event->id) }}" 
    class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 group">
     <span>View Details</span>
     <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>

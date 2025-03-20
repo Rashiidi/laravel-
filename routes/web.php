@@ -63,9 +63,10 @@ Route::post('/logout', function () {
 
 
 
-// User Section Routes
-Route::get('/events', [EventController::class, 'front'])->name('events.index');
-Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+   // Default Laravel user registration routes
+   Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+   Route::post('/register', [RegisteredUserController::class, 'store']);
+   
 
 // Registration Routes
 Route::post('/events/register/{eventId}', [RegistrationController::class, 'register'])
@@ -84,9 +85,9 @@ Route::post('/events/register/{eventId}', [RegistrationController::class, 'regis
         return view('about');
     })->name('about');
 
-    // Default Laravel user registration routes
-Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
-Route::post('/register', [RegisteredUserController::class, 'store']);
+// User Section Routes
+Route::get('/activities', [EventController::class, 'front'])->name('activities.index');
+Route::get('/activities/{id}', [EventController::class, 'show'])->name('activities.show');
 
 Route::get('/showServices', [ServiceController::class, 'showServices'])->name('services.showServices');
 
@@ -109,3 +110,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/assign-event', [AdminController::class, 'assignEventForm'])->name('admin.assignEventForm');
     Route::post('/admin/assign-event', [AdminController::class, 'assignEvent'])->name('admin.assignEvent');
 });
+
+
+

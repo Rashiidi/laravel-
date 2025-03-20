@@ -10,7 +10,7 @@
         </h1>
         <p class="text-xl mb-8 text-blue-100 font-light tracking-wide">Transform Your Life Through Fitness & Wellness</p>
         <div class="flex justify-center space-x-4">
-            <a href="{{ route('events.index') }}" class="group relative bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105">
+            <a href="{{ route('activities.index') }}" class="group relative bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:scale-105">
                 <span class="relative z-10">Explore Events</span>
                 <div class="absolute inset-0 rounded-full border-2 border-white/30 group-hover:border-white/50 transition-colors"></div>
             </a>

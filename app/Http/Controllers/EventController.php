@@ -105,8 +105,5 @@ class EventController extends Controller
         return redirect()->back()->with('success', 'You have successfully registered for the event.');
     }
 
-    public function __construct()
-{
-    $this->middleware('auth')->except(['front', 'show']);
-}
+ 
 }
