@@ -9,7 +9,7 @@ class Registration extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'event_id'];
+    protected $fillable = ['user_id', 'event_id', 'attended'];
 
     public function user()
     {
@@ -18,6 +18,6 @@ class Registration extends Model
 
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class, 'event_id'); // Correctly reference the Event model
     }
 }

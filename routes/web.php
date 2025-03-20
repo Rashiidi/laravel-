@@ -7,7 +7,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegistrationController;
@@ -61,8 +64,8 @@ Route::post('/logout', function () {
 
 
 // User Section Routes
-Route::get('/activities', [EventController::class, 'front'])->name('activities.index');
-Route::get('/activities/{id}', [EventController::class, 'show'])->name('activities.show');
+Route::get('/events', [EventController::class, 'front'])->name('events.index');
+Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
 // Registration Routes
 Route::post('/events/register/{eventId}', [RegistrationController::class, 'register'])
@@ -89,3 +92,20 @@ Route::get('/showServices', [ServiceController::class, 'showServices'])->name('s
 
 // Feedback and Reviews
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+
+// Trainer Section Routes
+
+Route::middleware(['auth', 'role:trainer'])->group(function () {
+    Route::get('/trainer/dashboard', [TrainerController::class, 'dashboard'])->name('trainer.dashboard');
+    Route::get('/trainer/reports', [TrainerController::class, 'reports'])->name('trainer.reports');
+});
+
+
+Route::post('/events/register/{eventId}', [RegistrationController::class, 'register'])
+    ->name('events.register')
+    ->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/assign-event', [AdminController::class, 'assignEventForm'])->name('admin.assignEventForm');
+    Route::post('/admin/assign-event', [AdminController::class, 'assignEvent'])->name('admin.assignEvent');
+});

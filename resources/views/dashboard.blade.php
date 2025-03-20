@@ -20,7 +20,7 @@
         <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-l-4 border-blue-500">
             <div class="flex items-center justify-between">
                 <div>
-                    <h3 class="text-gray-500 text-sm font-semibold">Total Activities</h3>
+                    <h3 class="text-gray-500 text-sm font-semibold">Total Events</h3>
                     <p class="text-3xl font-bold text-gray-800 mt-2">{{ $totalEvents }}</p>
                 </div>
                 <div class="bg-blue-100 p-4 rounded-full">
@@ -60,10 +60,9 @@
      
     <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="p-6 border-b border-gray-200">
-        @if(Auth::check() && Auth::user()->role !== 'admin')
+@if(Auth::check() && Auth::user()->role !== 'admin')
     <a href="{{ route('my-registrations') }}" class="nav-link">My Registrations</a>
-@endif
-        </div>
+@endif        </div>
 
         @if($registrations->isEmpty())
             <div class="p-6 text-gray-500">
@@ -81,28 +80,34 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($registrations as $registration)
-                            <tr class="hover:bg-gray-50 transition duration-150">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $registration->event->title }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $registration->event->date }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $registration->event->location }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    <div class="flex space-x-2">
-                                        <a href="{{ route('registrations.edit', $registration->id) }}" class="text-blue-500 hover:text-blue-600 px-3 py-1 rounded-md transition duration-300">
-                                            <i class="fas fa-edit mr-1"></i>Edit
-                                        </a>
-                                        <form action="{{ route('cancel-registration', $registration->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-600 px-3 py-1 rounded-md transition duration-300">
-                                                <i class="fas fa-trash-alt mr-1"></i>Cancel
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
+    @foreach($registrations as $registration)
+        <tr class="hover:bg-gray-50 transition duration-150">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {{ $registration->event->title ?? 'N/A' }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ $registration->event->date ?? 'N/A' }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ $registration->event->location ?? 'N/A' }}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                <div class="flex space-x-2">
+                    <a href="{{ route('registrations.edit', $registration->id) }}" class="text-blue-500 hover:text-blue-600 px-3 py-1 rounded-md transition duration-300">
+                        <i class="fas fa-edit mr-1"></i>Edit
+                    </a>
+                    <form action="{{ route('cancel-registration', $registration->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500 hover:text-red-600 px-3 py-1 rounded-md transition duration-300">
+                            <i class="fas fa-trash-alt mr-1"></i>Cancel
+                        </button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
                 </table>
             </div>
         @endif

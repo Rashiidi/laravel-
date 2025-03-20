@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return $this->authenticated($request, Auth::user());
     }
 
     /**
@@ -44,5 +44,14 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->role === 'trainer') {
+            return redirect()->route('trainer.dashboard'); // Redirect trainers to Trainer Dashboard
+        }
+    
+        return redirect()->route('dashboard'); // Redirect other users to the default dashboard
     }
 }

@@ -76,7 +76,7 @@
                 <a class="nav-link text-gray-300 hover:text-white" href="welcome">Home</a>
                 <a class="nav-link text-gray-300 hover:text-white" href="#">About</a>
                 <a class="nav-link text-gray-300 hover:text-white" href="{{ route('services.showServices') }}">Services</a>
-                <a class="nav-link text-gray-300 hover:text-white" href="{{ route('activities.index') }}">Events</a>
+                <a class="nav-link text-gray-300 hover:text-white" href="{{ route('events.index') }}">Events</a>
                 <a class="nav-link text-gray-300 hover:text-white" href="contact">Contact</a>
                 
                 <div class="flex space-x-4 ml-6">
@@ -147,7 +147,7 @@
                     <li><a href="welcome" class="text-gray-400 hover:text-red-500 transition-colors">Home</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-red-500 transition-colors">About Us</a></li>
                     <li><a href="/showServices" class="text-gray-400 hover:text-red-500 transition-colors">Services</a></li>
-                    <li><a href="{{ route('activities.index') }}" class="text-gray-400 hover:text-red-500 transition-colors">Events</a></li>
+                    <li><a href="{{ route('events.index') }}" class="text-gray-400 hover:text-red-500 transition-colors">Events</a></li>
                     <li><a href="contact" class="text-gray-400 hover:text-red-500 transition-colors">Contact</a></li>
                 </ul>
             </div>

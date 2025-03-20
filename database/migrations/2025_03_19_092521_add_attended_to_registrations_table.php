@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('feedback', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('registrations', function (Blueprint $table) {
+            $table->boolean('attended')->default(false);
         });
     }
 
@@ -26,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feedback');
+        Schema::table('registrations', function (Blueprint $table) {
+            $table->dropColumn('attended');
+        });
     }
 };
