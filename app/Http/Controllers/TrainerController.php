@@ -1,70 +1,55 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Trainer;
-use App\Models\Activity;
 use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\User;
 use App\Models\Registration;
-use Illuminate\Support\Facades\Auth;
 
 class TrainerController extends Controller
 {
+    // Trainer Dashboard
     public function dashboard()
-{
-    // Fetch the logged-in user's activities (assuming the user is a trainer)
-    $activities = Activity::whereHas('trainers', function ($query) {
-        $query->where('trainer_id', Auth::id());
-    })->get();
+    {
+        // Fetch events assigned to the logged-in trainer along with their participants
+        $events = Event::where('trainer_id', auth()->id())
+            ->with('participants') // Eager load participants
+            ->get();
 
-    // Fetch registrations for the activities
-    $registrations = [];
-    foreach ($activities as $activity) {
-        foreach ($activity->registrations as $registration) {
-            $registrations[] = $registration;
+        return view('trainers.dashboard', compact('events'));
+    }
+
+    // View Participants
+    public function participants($id)
+    {
+        $event = Event::where('id', $id)->where('trainer_id', auth()->id())->firstOrFail();
+        $participants = $event->participants; // Fetch registered users
+
+        return view('trainers.events.participants', compact('event', 'participants'));
+    }
+
+    // Mark Attendance
+    public function markAttendance(Request $request, $id)
+    {
+        $event = Event::where('id', $id)->where('trainer_id', auth()->id())->firstOrFail();
+
+        foreach ($request->participants as $userId => $status) {
+            $registration = $event->registrations()->where('user_id', $userId)->first();
+            if ($registration) {
+                $registration->attended = $status;
+                $registration->save();
+            }
         }
+
+        return redirect()->route('trainer.participants', $id)->with('success', 'Attendance updated successfully!');
     }
 
-    return view('trainers.dashboard', compact('activities', 'registrations'));
-}
+    // Generate Reports
+    public function reports()
+    {
+        $events = Event::where('trainer_id', auth()->id())->with('participants')->get();
 
-public function reports()
-{
-    $trainer = Auth::user();
-    $activities = $trainer->activities ?? collect(); // Ensure $activities is a collection
-
-    // Handle case where no activities are assigned
-    if ($activities === null || $activities->isEmpty()) {
-        return view('trainers.reports', [
-            'totalParticipants' => 0,
-            'attendanceRate' => 0,
-        ]);
+        return view('trainers.events.reports', compact('events'));
     }
-
-    // Calculate total participants
-    $totalParticipants = $activities->sum(function ($activity) {
-        return $activity->registrations->count();
-    });
-
-    // Calculate attendance rate
-    $totalAttended = $activities->sum(function ($activity) {
-        return $activity->registrations->where('attended', true)->count();
-    });
-
-    $attendanceRate = $totalParticipants > 0
-        ? round(($totalAttended / $totalParticipants) * 100, 2)
-        : 0;
-
-    return view('trainers.reports', compact('totalParticipants', 'attendanceRate'));
-}
-
-public function markAttendance(Request $request, $registrationId)
-{
-    $registration = Registration::findOrFail($registrationId);
-
-    $registration->update([
-        'attended' => $request->has('attended'),
-    ]);
-
-    return redirect()->back()->with('success', 'Attendance updated successfully.');
-}
 }

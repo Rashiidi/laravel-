@@ -78,6 +78,27 @@
                 @enderror
             </div>
 
+            <!-- Add the same "Trainer Selection" section as in the create form -->
+<div class="mb-6">
+    <label for="trainer_id" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+        <i class="fas fa-user-tie text-blue-500 mr-2"></i>
+        Assign Trainer
+    </label>
+    <select name="trainer_id" id="trainer_id"
+        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300"
+        required>
+        <option value="">Select a Trainer</option>
+        @foreach($trainers as $trainer)
+            <option value="{{ $trainer->id }}" {{ old('trainer_id', $event->trainer_id) == $trainer->id ? 'selected' : '' }}>
+                {{ $trainer->name }}
+            </option>
+        @endforeach
+    </select>
+    @error('trainer_id')
+        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
+</div>
+
             <!-- Form Actions -->
             <div class="flex flex-col sm:flex-row justify-end gap-3 mt-6">
                 <a href="{{ route('events.index') }}" 

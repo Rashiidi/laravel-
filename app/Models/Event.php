@@ -14,6 +14,7 @@ class Event extends Model
         'location',
         'date',
         'description',
+        'trainer_id',
     ];
 
     public function registrations()
@@ -30,4 +31,11 @@ public function feedback()
 {
     return $this->hasMany(Feedback::class);
 }
+
+
+    // Define the relationship with users (registered users)
+    public function participants()
+    {
+        return $this->belongsToMany(User::class, 'registrations', 'event_id', 'user_id');
+    }
 }

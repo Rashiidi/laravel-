@@ -64,7 +64,7 @@
             </div>
 
             <!-- Description Input -->
-            <div class="mb-8">
+            <div class="mb-6">
                 <label for="description" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                     <i class="fas fa-align-left text-orange-500 mr-2"></i>
                     Description
@@ -73,6 +73,27 @@
                     class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300 min-h-[150px]"
                     placeholder="Describe the event...">{{ old('description') }}</textarea>
                 @error('description')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Trainer Selection -->
+            <div class="mb-6">
+                <label for="trainer_id" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+                    <i class="fas fa-user-tie text-blue-500 mr-2"></i>
+                    Assign Trainer
+                </label>
+                <select name="trainer_id" id="trainer_id"
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300"
+                    required>
+                    <option value="">Select a Trainer</option>
+                    @foreach($trainers as $trainer)
+                        <option value="{{ $trainer->id }}" {{ old('trainer_id') == $trainer->id ? 'selected' : '' }}>
+                            {{ $trainer->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('trainer_id')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
@@ -91,20 +112,5 @@
         </form>
     </div>
 </div>
-
-<style>
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    input:focus, textarea:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-</style>
 
 @endsection

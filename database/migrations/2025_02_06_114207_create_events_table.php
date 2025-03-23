@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('location');
             $table->date('date'); // Add the date field
             $table->text('description')->nullable();
+            $table->foreignId('trainer_id')->constrained()->onDelete('cascade'); // Add the trainer_id field
             $table->timestamps();
         });
     }

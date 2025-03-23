@@ -4,26 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Registration;
+use App\Models\Feedback;
+use App\Models\Participant;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::all();
+        $events = Event::with('participants')->get();
         return view('events.index', compact('events'));
     }
 
     public function front()
     {
-        $events = Event::paginate(6);
+        $events = Event::with('participants')->paginate(6);
         return view('events.front', compact('events'));
     }
 
     public function create()
     {
-        return view('events.createForm');
+        $trainers = User::where('role', 'trainer')->get(); // Fetch all trainers
+        return view('events.createForm', compact('trainers'));
     }
 
     public function store(Request $request)
@@ -33,6 +37,8 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'date' => 'required|date',
             'description' => 'nullable|string',
+            'trainer_id' => 'required|exists:users,id', // Ensure the trainer exists
+
         ]);
 
         $existingEvent = Event::where('title', $request->title)
@@ -57,7 +63,8 @@ class EventController extends Controller
     public function edit($id)
     {
         $event = Event::findOrFail($id);
-        return view('events.editForm', compact('event'));
+        $trainers = User::where('role', 'trainer')->get(); // Fetch all trainers
+        return view('events.editForm', compact('event', 'trainers'));
     }
 
     public function update(Request $request, $id)
@@ -67,6 +74,8 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'date' => 'required|date',
             'description' => 'nullable|string',
+            'trainer_id' => 'required|exists:users,id', // Ensure the trainer exists
+
         ]);
 
         $event = Event::findOrFail($id);
@@ -103,7 +112,11 @@ class EventController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'You have successfully registered for the event.');
+
+        
     }
+
+    
 
  
 }

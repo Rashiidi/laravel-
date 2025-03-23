@@ -39,8 +39,12 @@
     <span>View Details</span>
     <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
 </a>
+
+
             </div>
         </div>
+
+        
         @endforeach
     </div>
 

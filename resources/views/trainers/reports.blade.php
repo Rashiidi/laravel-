@@ -1,15 +1,20 @@
-@extends('trainerlayout.app')
+@extends('adminlayout.app')
 
 @section('content')
-<div class="container mt-5">
-    <h1 class="text-center mb-4 text-primary fw-bold">Trainer Reports</h1>
-
-    <div class="card border-0 shadow-sm rounded-lg overflow-hidden bg-white">
-        <div class="card-body text-dark p-4">
-            <h2 class="text-xl font-bold mb-4">Activity Reports</h2>
-            <p>Total Participants: {{ $totalParticipants }}</p>
-            <p>Attendance Rate: {{ $attendanceRate }}%</p>
+<div class="container py-4">
+    <h1 class="text-primary mb-4">Reports</h1>
+    <div class="row">
+        @foreach ($events as $event)
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $event->title }}</h5>
+                    <p><strong>Participants:</strong> {{ $event->participants->count() }}</p>
+                    <p><strong>Attendance:</strong> {{ $event->participants->where('attendance', 'present')->count() }}</p>
+                </div>
+            </div>
         </div>
+        @endforeach
     </div>
 </div>
 @endsection

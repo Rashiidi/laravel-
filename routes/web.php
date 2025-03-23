@@ -96,8 +96,11 @@ Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.s
 
 // Trainer Section Routes
 
+
 Route::middleware(['auth', 'role:trainer'])->group(function () {
     Route::get('/trainer/dashboard', [TrainerController::class, 'dashboard'])->name('trainer.dashboard');
+    Route::get('/trainer/events/{id}/participants', [TrainerController::class, 'participants'])->name('trainer.participants');
+    Route::post('/trainer/events/{id}/attendance', [TrainerController::class, 'markAttendance'])->name('trainer.markAttendance');
     Route::get('/trainer/reports', [TrainerController::class, 'reports'])->name('trainer.reports');
 });
 
