@@ -109,10 +109,10 @@ Route::post('/events/register/{eventId}', [RegistrationController::class, 'regis
     ->name('events.register')
     ->middleware('auth');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/assign-event', [AdminController::class, 'assignEventForm'])->name('admin.assignEventForm');
-    Route::post('/admin/assign-event', [AdminController::class, 'assignEvent'])->name('admin.assignEvent');
-});
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/admin/assign-event', [AdminController::class, 'assignEventForm'])->name('admin.assignEventForm');
+//     Route::post('/admin/assign-event', [AdminController::class, 'assignEvent'])->name('admin.assignEvent');
+// });
 
 
 

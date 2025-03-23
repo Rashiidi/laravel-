@@ -2,34 +2,52 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="text-primary mb-4">Reports</h1>
-    <form method="GET" action="{{ route('trainer.reports') }}" class="mb-4">
-        <div class="row">
-            <div class="col-md-4">
-                <input type="date" name="start_date" class="form-control" placeholder="Start Date" required>
-            </div>
-            <div class="col-md-4">
-                <input type="date" name="end_date" class="form-control" placeholder="End Date" required>
-            </div>
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-primary">Filter</button>
-            </div>
-        </div>
+    <h1 class="text-primary">Event Reports</h1>
+
+    <form method="GET" action="{{ route('trainer.reports') }}">
+        <label>Start Date:</label>
+        <input type="date" name="start_date" value="{{ request('start_date') }}">
+        <label>End Date:</label>
+        <input type="date" name="end_date" value="{{ request('end_date') }}">
+        <button type="submit">Filter</button>
     </form>
 
-    <div class="row">
-        @foreach ($events as $event)
-        <div class="col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $event->title }}</h5>
-                    <p><strong>Participants:</strong> {{ $event->participants ? $event->participants->count() : 0 }}</p>
-                    <p><strong>Attendance:</strong> {{ $event->participants && $event->participants->where('attendance', 'present') ? $event->participants->where('attendance', 'present')->count() : 0 }}</p>
+    <h3>Summary</h3>
+    <p>Total Events: <strong>{{ $totalEvents }}</strong></p>
+    <p>Total Participants: <strong>{{ $totalParticipants }}</strong></p>
+    <p>Average Participants per Event: <strong>{{ $averageParticipants }}</strong></p>
+    <p>Total Attended: <strong>{{ $totalAttended }}</strong></p>
+    <p>Attendance Rate: <strong>{{ $attendanceRate }}%</strong></p>
 
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
+    <h3>Event Breakdown</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Participants</th>
+                <th>Attended</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach ($events as $event)
+        <tr>
+            <td>{{ $event->title }}</td>
+            <td>{{ $event->date }}</td>
+            <td>{{ $event->location }}</td>
+            <td>{{ is_iterable($event->participants) ? count($event->participants) : 0 }}</td>
+            <td>{{ is_iterable($event->registrations) ? $event->registrations->where('attended', true)->count() : 0 }}</td>
+        </tr>
+    @endforeach
+</tbody>
+
+
+
+
+    </table>
 </div>
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="eventChart"></canvas>
+

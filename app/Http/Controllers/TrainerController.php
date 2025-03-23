@@ -22,12 +22,16 @@ class TrainerController extends Controller
 
     // View Participants
     public function participants($id)
-    {
-        $event = Event::where('id', $id)->where('trainer_id', auth()->id())->firstOrFail();
-        $participants = $event->participants; // Fetch registered users
+{
+    // Fetch event assigned to the trainer
+    $event = Event::where('id', $id)->where('trainer_id', auth()->id())->firstOrFail();
 
-        return view('trainers.events.participants', compact('event', 'participants'));
-    }
+    // Retrieve participants
+    $participants = $event->participants()->get(); 
+
+    return view('trainers.events.participants', compact('event', 'participants'));
+}
+
 
     // Mark Attendance
     public function markAttendance(Request $request, $id)
@@ -48,15 +52,36 @@ class TrainerController extends Controller
     // Generate Reports
     public function reports(Request $request)
     {
-        $query = Event::where('trainer_id', auth()->id())->with('participants');
-
-        // Filter by date range if provided
+        // Get trainer's events with participants and registrations
+        $query = Event::where('trainer_id', auth()->id())->with(['participants', 'registrations']);
+    
+        // Apply date range filter
         if ($request->has('start_date') && $request->has('end_date')) {
             $query->whereBetween('date', [$request->start_date, $request->end_date]);
         }
-
+    
+        // Get events data
         $events = $query->get();
-
-        return view('trainers.events.reports', compact('events'));
+    
+        // Ensure collections
+        $events->each(function ($event) {
+            $event->participants = collect($event->participants);
+            $event->registrations = collect($event->registrations);
+        });
+    
+        // Calculate statistics
+        $totalEvents = $events->count();
+        $totalParticipants = $events->sum(fn($event) => $event->participants->count());
+        $averageParticipants = $totalEvents > 0 ? round($totalParticipants / $totalEvents) : 0;
+    
+        // Attendance statistics
+        $totalAttended = $events->sum(fn($event) => $event->registrations->where('attended', true)->count());
+        $attendanceRate = $totalParticipants > 0 ? round(($totalAttended / $totalParticipants) * 100, 2) : 0;
+    
+        return view('trainers.events.reports', compact(
+            'events', 'totalEvents', 'totalParticipants', 'averageParticipants', 'totalAttended', 'attendanceRate'
+        ));
     }
+    
+
 }
