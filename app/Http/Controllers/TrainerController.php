@@ -46,9 +46,16 @@ class TrainerController extends Controller
     }
 
     // Generate Reports
-    public function reports()
+    public function reports(Request $request)
     {
-        $events = Event::where('trainer_id', auth()->id())->with('participants')->get();
+        $query = Event::where('trainer_id', auth()->id())->with('participants');
+
+        // Filter by date range if provided
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        }
+
+        $events = $query->get();
 
         return view('trainers.events.reports', compact('events'));
     }

@@ -9,7 +9,8 @@
     <p><strong>Description:</strong> {{ $event->description }}</p>
 
     <h3 class="mt-4">Registered Participants:</h3>
-    @if ($participants->isEmpty())
+    @if (!is_iterable($participants) || $participants->isEmpty())
+
         <div class="alert alert-warning">
             <strong>No participants registered for this event yet.</strong>
         </div>
@@ -23,4 +24,4 @@
         </ul>
     @endif
 </div>
-@endsection
+@endsection 
