@@ -69,12 +69,12 @@
             <div class="flex items-center space-x-3">
                 <img alt="Fitness Club Logo" class="h-12 w-12 transform hover:scale-110 transition-transform" 
                      src="https://storage.googleapis.com/a1aa/image/kR40XUiHCrLkWC8pNcoJ170VlQk5sEPJQfXi4d9EkIo.jpg">
-                <span class="text-2xl font-bold gradient-text font-poppins">FitClub</span>
+                <span class="text-2xl font-bold gradient-text font-poppins">Iron Peak Fitness</span>
             </div>
             
             <nav class="hidden md:flex items-center space-x-8">
                 <a class="nav-link text-gray-300 hover:text-white" href="welcome">Home</a>
-                <a class="nav-link text-gray-300 hover:text-white" href="#">About</a>
+                <a class="nav-link text-gray-300 hover:text-white" href="{{ route('about') }}">About</a>
                 <a class="nav-link text-gray-300 hover:text-white" href="{{ route('services.showServices') }}">Services</a>
                 <a class="nav-link text-gray-300 hover:text-white" href="{{ route('activities.index') }}">Events</a>
                 <a class="nav-link text-gray-300 hover:text-white" href="contact">Contact</a>
@@ -121,7 +121,7 @@
                 <div class="flex items-center space-x-3">
                     <img alt="Fitness Club Logo" class="h-12 w-12" 
                          src="https://storage.googleapis.com/a1aa/image/kR40XUiHCrLkWC8pNcoJ170VlQk5sEPJQfXi4d9EkIo.jpg">
-                    <span class="text-2xl font-bold gradient-text font-poppins">FitClub</span>
+                    <span class="text-2xl font-bold gradient-text font-poppins">Iron Peak Fitness</span>
                 </div>
                 <p class="text-gray-400 text-sm">Transform your life through fitness. Join our community of passionate fitness enthusiasts.</p>
                 <div class="flex space-x-4 mt-4">
@@ -145,7 +145,7 @@
                 <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
                 <ul class="space-y-2">
                     <li><a href="welcome" class="text-gray-400 hover:text-red-500 transition-colors">Home</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-red-500 transition-colors">About Us</a></li>
+                    <li><a href="about" class="text-gray-400 hover:text-red-500 transition-colors">About Us</a></li>
                     <li><a href="/showServices" class="text-gray-400 hover:text-red-500 transition-colors">Services</a></li>
                     <li><a href="{{ route('activities.index') }}" class="text-gray-400 hover:text-red-500 transition-colors">Events</a></li>
                     <li><a href="contact" class="text-gray-400 hover:text-red-500 transition-colors">Contact</a></li>
@@ -192,7 +192,7 @@
         <!-- Copyright -->
         <div class="border-t border-gray-700/50 mt-12 pt-8 text-center">
             <p class="text-gray-500 text-sm">
-                © 2024 FitClub. All rights reserved. 
+                © 2024 Iron Peak Fitness. All rights reserved. 
                 <a href="#" class="hover:text-red-500 transition-colors">Privacy Policy</a> | 
                 <a href="#" class="hover:text-red-500 transition-colors">Terms of Service</a>
             </p>

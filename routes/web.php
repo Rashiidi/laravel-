@@ -7,9 +7,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
@@ -109,10 +111,17 @@ Route::post('/events/register/{eventId}', [RegistrationController::class, 'regis
     ->name('events.register')
     ->middleware('auth');
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/admin/assign-event', [AdminController::class, 'assignEventForm'])->name('admin.assignEventForm');
-//     Route::post('/admin/assign-event', [AdminController::class, 'assignEvent'])->name('admin.assignEvent');
-// });
 
 
+    Route::get('/emails/{id}', function ($id) {
+        return response()->json(Email::findOrFail($id));
+    });
+
+
+    Route::get('/admin/send-email', [EmailController::class, 'showForm'])->name('admin.email.form');
+    Route::post('/admin/send-email', [EmailController::class, 'sendEmail'])->name('email.send');
+
+
+    Route::get('/free-trial', [LandingPageController::class, 'freeTrial'])->name('free.trial');
+    Route::post('/free-trial', [LandingPageController::class, 'submitTrial'])->name('free.trial.submit');
 

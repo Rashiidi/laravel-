@@ -1,12 +1,11 @@
 @extends('adminlayout.app')
 
 @section('content')
-
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="text-primary">Manage Events</h1>
         <a href="{{ route('events.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus-circle me-2"></i>Create Event
+            <i class="fas fa-plus me-2"></i>New Event
         </a>
     </div>
 
@@ -27,8 +26,7 @@
                     <div class="bg-light p-3 rounded mb-3">
                         <p class="mb-1"><strong>Location:</strong> {{ $event->location }}</p>
                         <p class="mb-1"><strong>Date:</strong> {{ $event->date }}</p>
-                        <p class="mb-1"><strong>Description:</strong> {{ $event->description }}</p>
-                        <p class="mb-0 text-muted small"><strong>Event ID:</strong> {{ $event->id }}</p>
+                        <p class="mb-0 text-muted small"><strong>Description:</strong> {{ $event->description }}</p>
                     </div>
                     <div class="d-grid gap-2">
                         <a href="{{ route('events.edit', $event->id) }}" class="btn btn-outline-primary btn-sm">
@@ -39,7 +37,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-outline-danger btn-sm w-100" 
                                 onclick="return confirm('Delete this event?')">
-                                <i class="fas fa-trash-alt me-2"></i>Delete
+                                <i class="fas fa-trash me-2"></i>Delete
                             </button>
                         </form>
                     </div>

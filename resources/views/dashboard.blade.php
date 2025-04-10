@@ -6,12 +6,18 @@
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <h1 class="text-3xl font-bold text-gray-800 mb-4 md:mb-0">Fitness Dashboard</h1>
+        <a href="{{ route('admin.email.form') }}" class="bg-purple-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-purple-700 transition">
+        📧 Send Email to Trainers
+    </a>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg shadow-md transition duration-300 flex items-center">
                 <i class="fas fa-sign-out-alt mr-2"></i>Logout
             </button>
         </form>
+
+    
+
     </div>
 
     <!-- Stats Grid -->
@@ -55,6 +61,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Notifications Section -->
+    <div class="notifications">
+    @foreach($notifications as $notification)
+        <div class="notification">
+            <strong>{{ $notification->title }}</strong>
+            <p>{{ $notification->message }}</p>
+        </div>
+    @endforeach
+</div>
+
 
     <!-- Registered Events Section -->
      

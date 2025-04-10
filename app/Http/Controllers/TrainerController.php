@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\EmailLog;
 use App\Models\Registration;
 
 class TrainerController extends Controller
@@ -17,7 +18,9 @@ class TrainerController extends Controller
             ->with('participants') // Eager load participants
             ->get();
 
-        return view('trainers.dashboard', compact('events'));
+            $emails = EmailLog::orderBy('created_at', 'desc')->get();
+
+        return view('trainers.dashboard', compact('events','emails'));
     }
 
     // View Participants

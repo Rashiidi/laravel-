@@ -29,6 +29,7 @@
                     <span class="ml-3 font-medium">Profile</span>
                 </a>
             </li>
+            
             <li>
                 <a href="{{ route('events.index') }}" class="flex items-center p-3 rounded-lg transition-all duration-300 hover:bg-blue-700 hover:translate-x-2">
                     <i class="fas fa-calendar-alt w-6 text-center"></i>
